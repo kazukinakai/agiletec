@@ -1,0 +1,45 @@
+@import 'tailwindcss';
+
+/* カスタムCSSの追加 */
+:root {
+  --font-sans: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ベーススタイル */
+html {
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+}
+
+/* アニメーション用スタイル */
+.diagonal-line {
+  position: absolute;
+  opacity: 0.8;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* reduced-motion対応 */
+@media (prefers-reduced-motion: reduce) {
+  .diagonal-line {
+    animation: none !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* パフォーマンス最適化 */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}

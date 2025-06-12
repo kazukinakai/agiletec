@@ -1,0 +1,48 @@
+---
+import type { PageMeta } from '@types/index';
+import '@styles/global.css';
+
+export interface Props {
+  meta?: PageMeta;
+  class?: string;
+}
+
+const { 
+  meta = {
+    title: 'Agile Technology | 全ての企業に自社開発を',
+    description: '私達アジャイルテクノロジーは「全ての企業に自社開発」をビジョンに全ての企業様のDXを一気通貫で支援するプロフェッショナルカンパニーです',
+    keywords: ['アジャイル', 'テクノロジー', 'DX', '自社開発', 'システム開発']
+  },
+  class: className = ''
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={meta.description} />
+    <meta name="keywords" content={meta.keywords?.join(', ')} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- OG Tags -->
+    <meta property="og:title" content={meta.title} />
+    <meta property="og:description" content={meta.description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:image" content={meta.ogImage || '/og-image.png'} />
+    
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={meta.title} />
+    <meta name="twitter:description" content={meta.description} />
+    <meta name="twitter:image" content={meta.ogImage || '/og-image.png'} />
+    
+    <title>{meta.title}</title>
+  </head>
+  <body class={`antialiased ${className}`}>
+    <slot />
+  </body>
+</html>
