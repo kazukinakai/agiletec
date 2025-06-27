@@ -1,12 +1,13 @@
 name = "slack-connect-bot"
 main = "src/index.ts"
 compatibility_date = "2025-06-27"
+compatibility_flags = ["nodejs_compat"]
 
-[vars]
-INFISICAL_CLIENT_ID = "YOUR_INFISICAL_CLIENT_ID"
-INFISICAL_CLIENT_SECRET = "YOUR_INFISICAL_CLIENT_SECRET"
-INFISICAL_PROJECT_ID = "YOUR_PROJECT_ID"
-INFISICAL_ENVIRONMENT = "prod"
+# Infisical関連の環境変数は wrangler secret で設定
+# npx wrangler secret put INFISICAL_CLIENT_ID
+# npx wrangler secret put INFISICAL_CLIENT_SECRET
+# npx wrangler secret put INFISICAL_PROJECT_ID
+# npx wrangler secret put INFISICAL_ENVIRONMENT
 
 [[routes]]
 pattern = "api.agiletec.net/*"
@@ -16,8 +17,4 @@ zone_name = "agiletec.net"
 pattern = "stg.agiletec.net/*"
 zone_name = "agiletec.net"
 
-[env.production]
-vars = { INFISICAL_ENVIRONMENT = "prod" }
-
-[env.staging]
-vars = { INFISICAL_ENVIRONMENT = "staging" }
+# 環境ごとの設定は不要（Secretsで管理）

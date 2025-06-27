@@ -46,3 +46,8 @@ temp/
 # Cloudflare
 .mf/
 .dev.vars
+
+# Unused files
+site-sync/
+deploy.sh
+run-deploy.sh

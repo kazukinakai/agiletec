@@ -3,7 +3,7 @@ import { env } from 'hono/adapter'
 import { Logger } from '../utils/logger'
 import { getSecretsFromInfisical } from '../utils/infisical'
 import { SlackService } from '../services/slack'
-import crypto from 'crypto'
+import { createHmac, timingSafeEqual } from 'node:crypto'
 
 const events = new Hono()
 
@@ -35,12 +35,11 @@ function verifySlackSignature(
   signingSecret: string
 ): boolean {
   const baseString = `v0:${timestamp}:${body}`
-  const mySignature = 'v0=' + crypto
-    .createHmac('sha256', signingSecret)
+  const mySignature = 'v0=' + createHmac('sha256', signingSecret)
     .update(baseString)
     .digest('hex')
   
-  return crypto.timingSafeEqual(
+  return timingSafeEqual(
     Buffer.from(mySignature, 'utf8'),
     Buffer.from(signature, 'utf8')
   )
