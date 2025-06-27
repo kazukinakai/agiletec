@@ -1,0 +1,146 @@
+/**
+ * スクロール連動斜線アニメーション
+ * パフォーマンス最適化済み（Intersection Observer + requestAnimationFrame）
+ */
+class ScrollStripesAnimation {
+  constructor() {
+    this.elements = [];
+    this.ticking = false;
+    this.isVisible = false;
+    this.observer = null;
+    
+    this.init();
+  }
+  
+  init() {
+    // スクロール対象要素の取得
+    this.elements = document.querySelectorAll('[data-scroll-speed]');
+    
+    if (this.elements.length === 0) {
+      console.warn('No scroll animation elements found');
+      return;
+    }
+    
+    // Intersection Observer for performance
+    this.setupIntersectionObserver();
+    
+    // スクロールイベントの設定
+    this.bindScrollEvent();
+    
+    // GPU acceleration の有効化
+    this.enableHardwareAcceleration();
+  }
+  
+  setupIntersectionObserver() {
+    const options = {
+      root: null,
+      rootMargin: '50px',
+      threshold: 0.1
+    };
+    
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.target.classList.contains('hero-background')) {
+          this.isVisible = entry.isIntersecting;
+        }
+      });
+    }, options);
+    
+    // HeroSectionの観察
+    const heroSection = document.querySelector('section[class*="min-h-screen"]');
+    if (heroSection) {
+      heroSection.classList.add('hero-background');
+      this.observer.observe(heroSection);
+    }
+  }
+  
+  bindScrollEvent() {
+    window.addEventListener('scroll', () => {
+      if (!this.ticking && this.isVisible) {
+        requestAnimationFrame(() => {
+          this.updateElements();
+          this.ticking = false;
+        });
+        this.ticking = true;
+      }
+    }, { passive: true });
+  }
+  
+  enableHardwareAcceleration() {
+    this.elements.forEach(element => {
+      element.style.willChange = 'transform';
+      element.style.backfaceVisibility = 'hidden';
+    });
+  }
+  
+  calculateOffset(scrollY, speed, direction) {
+    const baseOffset = scrollY * speed;
+    
+    switch (direction) {
+      case 'up-left':
+        return { x: -baseOffset * 0.5, y: -baseOffset };
+      case 'up-right':
+        return { x: baseOffset * 0.5, y: -baseOffset };
+      case 'down-left':
+        return { x: -baseOffset * 0.3, y: baseOffset * 0.8 };
+      case 'down-right':
+        return { x: baseOffset * 0.3, y: baseOffset * 0.8 };
+      case 'left':
+        return { x: -baseOffset, y: 0 };
+      case 'right':
+        return { x: baseOffset, y: 0 };
+      case 'vertical':
+        return { x: 0, y: baseOffset };
+      case 'horizontal':
+        return { x: baseOffset, y: 0 };
+      default:
+        return { x: 0, y: -baseOffset * 0.5 };
+    }
+  }
+  
+  updateElements() {
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    
+    this.elements.forEach(element => {
+      const speed = parseFloat(element.dataset.scrollSpeed) || 0.5;
+      const direction = element.dataset.scrollDirection || 'vertical';
+      const { x, y } = this.calculateOffset(scrollY, speed, direction);
+      
+      // 既存のrotationを保持しつつtransformを適用
+      const rotation = element.style.getPropertyValue('--rotation') || '0deg';
+      element.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${rotation})`;
+    });
+  }
+  
+  destroy() {
+    if (this.observer) {
+      this.observer.disconnect();
+    }
+    
+    // willChangeプロパティをクリア
+    this.elements.forEach(element => {
+      element.style.willChange = 'auto';
+    });
+  }
+}
+
+// prefers-reduced-motion対応
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+if (!prefersReducedMotion.matches) {
+  // ページ読み込み後にアニメーション開始
+  window.addEventListener('load', () => {
+    new ScrollStripesAnimation();
+  });
+}
+
+// motion設定変更の監視
+prefersReducedMotion.addListener((e) => {
+  if (e.matches) {
+    // アニメーション停止
+    document.querySelectorAll('[data-scroll-speed]').forEach(element => {
+      element.style.transform = '';
+      element.style.willChange = 'auto';
+    });
+  }
+});

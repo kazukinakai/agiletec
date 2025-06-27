@@ -1,0 +1,41 @@
+# 環境変数・シークレット
+.env
+.env.*
+.env.local
+.env.*.local
+*.env
+
+# Infisical関連
+.infisical*
+infisical-export.*
+infisical.json
+
+# 認証情報
+*credentials*
+*secret*
+*token*
+*.key
+*.pem
+*.cert
+
+# ビルド出力
+dist/
+build/
+.wrangler/
+
+# IDE設定
+.vscode/settings.json
+.idea/
+
+# ログファイル
+*.log
+logs/
+
+# 一時ファイル
+tmp/
+temp/
+*.tmp
+
+# Cloudflare
+.dev.vars
+wrangler.toml.backup

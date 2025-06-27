@@ -1,28 +1,28 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import Hero from '@components/sections/Hero.astro';
-import News from '@components/sections/News.astro';
-import Services from '@components/sections/Services.astro';
-import Profile from '@components/sections/Profile.astro';
-import Portfolio from '@components/sections/Portfolio.astro';
-import Testimonials from '@components/sections/Testimonials.astro';
-import ContactCTA from '@components/sections/ContactCTA.astro';
-import Footer from '@components/common/Footer.astro';
+import HeroSection from '@components/sections/HeroSection.astro';
+import AboutSection from '@components/sections/AboutSection.astro';
+import MessageSection from '@components/sections/MessageSection.astro';
+import ServiceOverview from '@components/sections/ServiceOverview.astro';
+import CaseStudies from '@components/sections/CaseStudies.astro';
+import NewsSection from '@components/sections/NewsSection.astro';
+import ContactSection from '@components/sections/ContactSection.astro';
+import SimpleFooter from '@components/common/SimpleFooter.astro';
 
 const meta = {
   title: 'Agile Technology - 全ての企業に自社開発を',
   description: '生成AIの登場で、自社開発はもはや夢物語では無くなりました。MVP開発・DX/業務自動化・Web制作を、爆速かつ高品質、しかも圧倒的コストパフォーマンスでご提供します。大手品質を、フリーランス法人の価格とスピードで。',
-  keywords: ['アジャイル', 'テクノロジー', 'DX', '自社開発', 'MVP開発', '業務自動化', 'Web制作', 'フリーランス法人', '生成AI']
+  keywords: ['アジャイルテクノロジー', '自社開発', 'MVP開発', 'DX', '業務自動化', 'Web制作', 'AI開発', 'フリーランス法人']
 };
 ---
 
 <BaseLayout meta={meta}>
-  <Hero />
-  <News />
-  <Services />
-  <Profile />
-  <Portfolio />
-  <Testimonials />
-  <ContactCTA />
-  <Footer />
+  <HeroSection />
+  <AboutSection />
+  <MessageSection />
+  <ServiceOverview />
+  <CaseStudies />
+  <NewsSection />
+  <ContactSection />
+  <SimpleFooter />
 </BaseLayout>

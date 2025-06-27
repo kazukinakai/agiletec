@@ -1,0 +1,185 @@
+---
+---
+
+<section id="contact" class="py-20 bg-gradient-to-br from-pink-500 to-pink-600">
+  <div class="container mx-auto px-4 max-w-6xl">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">
+        お問い合わせ
+      </h2>
+      <p class="text-xl text-pink-100 max-w-3xl mx-auto">
+        プロジェクトのご相談、お見積もり、その他ご質問など、
+        <br>お気軽にお問い合わせください。
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Contact Method 1 -->
+      <div class="bg-white rounded-xl p-8 text-center shadow-lg">
+        <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+          <div class="text-2xl text-white">💬</div>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">LINE相談</h3>
+        <p class="text-gray-600 mb-6 text-sm">
+          LINEでお気軽にご相談いただけます。
+          24時間以内にご返信いたします。
+        </p>
+        <a href="#" class="inline-block w-full px-6 py-3 bg-green-500 text-white font-medium rounded-lg hover:bg-green-600 transition-colors duration-300">
+          LINEで相談する
+        </a>
+      </div>
+
+      <!-- Contact Method 2 -->
+      <div class="bg-white rounded-xl p-8 text-center shadow-lg">
+        <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
+          <div class="text-2xl text-white">📞</div>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">お電話</h3>
+        <p class="text-gray-600 mb-6 text-sm">
+          お急ぎの場合はお電話でも承ります。
+          平日10:00-18:00
+        </p>
+        <a href="tel:03-1234-5678" class="inline-block w-full px-6 py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 transition-colors duration-300">
+          03-1234-5678
+        </a>
+      </div>
+
+      <!-- Contact Method 3 -->
+      <div class="bg-white rounded-xl p-8 text-center shadow-lg">
+        <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-6">
+          <div class="text-2xl text-white">✉️</div>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">メール</h3>
+        <p class="text-gray-600 mb-6 text-sm">
+          詳細なご相談やお見積もりのご依頼は
+          メールでお送りください。
+        </p>
+        <a href="mailto:contact@agiletec.net" class="inline-block w-full px-6 py-3 bg-purple-500 text-white font-medium rounded-lg hover:bg-purple-600 transition-colors duration-300">
+          メールを送る
+        </a>
+      </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="mt-16 bg-white rounded-2xl p-8 md:p-12 shadow-lg">
+      <div class="text-center mb-8">
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">
+          お問い合わせフォーム
+        </h3>
+        <p class="text-gray-600">
+          以下のフォームからもお問い合わせいただけます
+        </p>
+      </div>
+
+      <form class="space-y-6">
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+              お名前 <span class="text-red-500">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="name" 
+              name="name" 
+              required 
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+              placeholder="山田 太郎"
+            >
+          </div>
+          <div>
+            <label for="company" class="block text-sm font-medium text-gray-700 mb-2">
+              会社名
+            </label>
+            <input 
+              type="text" 
+              id="company" 
+              name="company" 
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+              placeholder="株式会社○○"
+            >
+          </div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+              メールアドレス <span class="text-red-500">*</span>
+            </label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              required 
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+              placeholder="example@company.com"
+            >
+          </div>
+          <div>
+            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+              電話番号
+            </label>
+            <input 
+              type="tel" 
+              id="phone" 
+              name="phone" 
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+              placeholder="03-1234-5678"
+            >
+          </div>
+        </div>
+
+        <div>
+          <label for="service" class="block text-sm font-medium text-gray-700 mb-2">
+            ご希望のサービス
+          </label>
+          <select 
+            id="service" 
+            name="service" 
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+          >
+            <option value="">選択してください</option>
+            <option value="mvp">MVP開発</option>
+            <option value="dx">DX/業務自動化</option>
+            <option value="web">Web制作</option>
+            <option value="consulting">技術コンサルティング</option>
+            <option value="maintenance">保守・運用</option>
+            <option value="other">その他</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="message" class="block text-sm font-medium text-gray-700 mb-2">
+            お問い合わせ内容 <span class="text-red-500">*</span>
+          </label>
+          <textarea 
+            id="message" 
+            name="message" 
+            rows="6" 
+            required 
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            placeholder="プロジェクトの詳細やご要望をお聞かせください"
+          ></textarea>
+        </div>
+
+        <div class="text-center">
+          <button 
+            type="submit" 
+            class="inline-block px-12 py-4 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors duration-300 shadow-lg"
+          >
+            送信する
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Additional Info -->
+    <div class="mt-12 text-center text-pink-100">
+      <div class="mb-4">
+        <span class="text-sm">営業時間: 平日 10:00-18:00 | 緊急対応: 24時間365日</span>
+      </div>
+      <div class="text-sm">
+        お問い合わせから24時間以内にご返信いたします
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,136 @@
+---
+// PR TIMESからのニュースを取得する想定
+const newsItems = [
+  {
+    id: 1,
+    title: "新サービス「AI開発支援パッケージ」の提供を開始いたします",
+    date: "2025-01-10",
+    category: "新サービス",
+    excerpt: "生成AIを活用した開発支援サービスの提供を開始いたします。お客様のプロジェクトに最適化されたAIソリューションを短期間で構築し、開発効率の大幅な向上を実現します。",
+    tags: ["新サービス", "AI開発", "効率化", "自動化"]
+  },
+  {
+    id: 2,
+    title: "大手製造業様向けIoTシステム構築プロジェクトが完了いたしました",
+    date: "2024-12-15",
+    category: "実績",
+    excerpt: "工場の生産性向上を目的としたIoTシステムの構築が完了し、生産効率30%向上を実現いたしました。"
+  },
+  {
+    id: 3,
+    title: "年末年始の営業についてのお知らせ",
+    date: "2024-11-28",
+    category: "お知らせ",
+    excerpt: "年末年始の営業日程についてお知らせいたします。緊急対応については24時間対応いたします。"
+  },
+  {
+    id: 4,
+    title: "次世代Webフレームワーク「Astro 5.0」への対応を開始",
+    date: "2024-11-10",
+    category: "技術",
+    excerpt: "最新のWebフレームワークであるAstro 5.0への対応を開始し、より高速で効率的なWebサイト構築が可能になりました。"
+  },
+  {
+    id: 5,
+    title: "DX推進セミナー「自社開発のススメ」を開催いたします",
+    date: "2024-10-25",
+    category: "イベント",
+    excerpt: "企業のDX推進を支援するセミナーを開催いたします。自社開発のメリットや進め方について詳しく解説いたします。"
+  }
+];
+
+const getCategoryColor = (category: string) => {
+  const colors: { [key: string]: string } = {
+    '新サービス': 'bg-blue-100 text-blue-800',
+    '実績': 'bg-green-100 text-green-800',
+    'お知らせ': 'bg-blue-100 text-blue-800',
+    '技術': 'bg-purple-100 text-purple-800',
+    'イベント': 'bg-orange-100 text-orange-800'
+  };
+  return colors[category] || 'bg-gray-100 text-gray-800';
+};
+
+const getBorderColor = (category: string) => {
+  const colors: { [key: string]: string } = {
+    '新サービス': 'border-blue-500',
+    '実績': 'border-green-500',
+    'お知らせ': 'border-blue-500',
+    '技術': 'border-purple-500',
+    'イベント': 'border-orange-500'
+  };
+  return colors[category] || 'border-gray-500';
+};
+---
+
+<section class="py-20 bg-white">
+  <div class="container mx-auto px-4 max-w-6xl">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        ニュース
+      </h2>
+      <p class="text-xl text-gray-600">
+        最新の情報をお届けします
+      </p>
+    </div>
+
+    <!-- Featured News -->
+    {newsItems[0] && (
+      <div class="bg-blue-50 rounded-2xl p-8 mb-12">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <span class="text-4xl font-bold text-blue-600">1/10</span>
+            <div class="text-sm text-gray-600 mt-1">最新のお知らせ</div>
+          </div>
+          <div class="text-right">
+            <div class="text-sm text-gray-500">{new Date(newsItems[0].date).toLocaleDateString('ja-JP')}</div>
+            <div class="text-lg font-semibold text-gray-900">{newsItems[0].category}</div>
+          </div>
+        </div>
+        
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">
+          {newsItems[0].title}
+        </h3>
+        <p class="text-gray-700 leading-relaxed mb-6">
+          {newsItems[0].excerpt}
+        </p>
+        
+        {newsItems[0].tags && (
+          <div class="flex flex-wrap gap-3">
+            {newsItems[0].tags.map((tag: string) => (
+              <span class={`px-3 py-1 text-sm rounded-full ${getCategoryColor(tag)}`}>
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+    )}
+
+    <!-- News List -->
+    <div class="space-y-6">
+      {newsItems.slice(1).map((item) => (
+        <div class={`border-l-4 ${getBorderColor(item.category)} pl-6 py-4`}>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-sm text-gray-500">{new Date(item.date).toLocaleDateString('ja-JP')}</span>
+            <span class={`px-3 py-1 text-xs rounded-full ${getCategoryColor(item.category)}`}>
+              {item.category}
+            </span>
+          </div>
+          <h4 class="text-lg font-semibold text-gray-900 mb-2">
+            {item.title}
+          </h4>
+          <p class="text-gray-600 text-sm">
+            {item.excerpt}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <!-- View More -->
+    <div class="text-center mt-12">
+      <a href="#" class="inline-block px-6 py-3 border-2 border-blue-600 text-blue-600 font-medium rounded-lg hover:bg-blue-600 hover:text-white transition-colors duration-300">
+        すべてのニュースを見る
+      </a>
+    </div>
+  </div>
+</section>

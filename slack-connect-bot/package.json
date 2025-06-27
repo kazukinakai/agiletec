@@ -1,0 +1,39 @@
+{
+  "name": "slack-connect-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "infisical run --env=development -- wrangler dev",
+    "dev:local": "wrangler dev",
+    "deploy": "infisical run --env=production -- wrangler deploy",
+    "deploy:staging": "infisical run --env=staging -- wrangler deploy --env staging",
+    "deploy:production": "infisical run --env=production -- wrangler deploy --env production",
+    "deploy:local": "wrangler deploy",
+    "infisical:login": "infisical login",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "check:env": "node scripts/check-env.js",
+    "predev": "node scripts/check-env.js",
+    "predeploy": "node scripts/check-env.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.12.1",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250627.0",
+    "@infisical/cli": "^0.41.86",
+    "@typescript-eslint/eslint-plugin": "^8.35.0",
+    "@typescript-eslint/parser": "^8.35.0",
+    "eslint": "^9.29.0",
+    "eslint-plugin-no-secrets": "^2.2.1",
+    "hono": "^4.8.3",
+    "wrangler": "^4.22.0"
+  },
+  "dependencies": {
+    "@infisical/sdk": "^4.0.2"
+  }
+}

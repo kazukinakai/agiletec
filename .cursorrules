@@ -1,0 +1,82 @@
+# Agile Technology プロジェクト設定
+
+## プロジェクト概要
+- Astro 4.x + Motion + Tailwind CSS + TypeScript
+- 静的サイト生成（SSG）でパフォーマンス最優先
+- Island Architecture（アニメーション部分のみReact）
+
+## コーディングルール
+
+### ファイル構造
+- `.astro` ファイルは静的コンテンツ用
+- `.tsx` ファイルはアニメーション島のみ
+- components/animation/ にMotion関連を配置
+- components/sections/ にページセクション配置
+
+### スタイリング
+- Tailwind CSS必須
+- カスタムCSS最小限
+- レスポンシブファーストアプローチ
+- GPU加速（transform のみ）
+
+### アニメーション
+- Motion（framer-motion/mini）使用
+- Intersection Observer API活用
+- 60FPS維持
+- prefers-reduced-motion 対応
+
+### TypeScript
+- strict mode有効
+- 型安全性重視
+- interface優先
+
+### パフォーマンス
+- 初期ページ < 100KB
+- JavaScript < 50KB
+- WebP/AVIF画像形式
+- CDN最適化
+
+## 実装パターン
+
+### Astro Component例
+```astro
+---
+import type { ComponentProps } from './types'
+import AnimationIsland from './AnimationIsland.tsx'
+---
+
+<section class="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600">
+  <div class="container mx-auto px-4">
+    <!-- 静的コンテンツ -->
+    <h1 class="text-4xl font-bold text-white">Title</h1>
+    
+    <!-- アニメーション島 -->
+    <AnimationIsland client:load />
+  </div>
+</section>
+```
+
+### Motion Component例
+```tsx
+import { motion, useScroll, useTransform } from 'framer-motion'
+
+export default function AnimationIsland() {
+  const { scrollY } = useScroll()
+  const opacity = useTransform(scrollY, [0, 300], [1, 0])
+  
+  return (
+    <motion.div
+      style={{ opacity }}
+      className="transform-gpu"
+    >
+      {/* アニメーション要素 */}
+    </motion.div>
+  )
+}
+```
+
+## 変換時の注意点
+- React JSXをAstro形式に変換
+- className → class
+- Motion部分のみ分離してisland化
+- Tailwind設定をプロジェクトに合わせて調整

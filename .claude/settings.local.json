@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:agiletec.net)",
+      "Bash(npm create:*)",
+      "Bash(npm install:*)",
+      "Bash(npx astro add:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npm run build:*)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm update:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm run dev)",
+      "Bash(mkdir:*)",
+      "Bash(pkill:*)",
+      "Bash(pnpm create:*)",
+      "Bash(pnpm init:*)",
+      "Bash(rm:*)",
+      "Bash(node scripts/check-env.js)",
+      "Bash(touch:*)",
+      "WebFetch(domain:dev.agiletec.net)"
+    ],
+    "deny": []
+  }
+}

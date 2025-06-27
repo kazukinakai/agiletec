@@ -1,0 +1,57 @@
+---
+// 必要に応じて props 追加可
+---
+
+<div id="background-stripes" class="background-stripes"></div>
+
+<style>
+#background-stripes {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 0, 0, 0.2),
+    rgba(255, 0, 0, 0.2) 2px,
+    transparent 2px,
+    transparent 20px
+  );
+  z-index: -1;
+  will-change: transform;
+  transition: transform 0.2s ease-out;
+}
+
+#background-stripes.flow-in {
+  animation: stripesFlowIn 1s ease-out forwards;
+}
+
+@keyframes stripesFlowIn {
+  0% {
+    transform: translate(-100px, -100px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+</style>
+
+<script>
+window.addEventListener("load", () => {
+  const stripes = document.getElementById("background-stripes");
+  if (!stripes) return;
+
+  // 初回 flow-in アニメ
+  stripes.classList.add("flow-in");
+
+  // スクロール連動
+  let lastScrollY = window.scrollY;
+  window.addEventListener("scroll", () => {
+    const scrollY = window.scrollY;
+    const offset = scrollY * 0.2; // 調整可
+    stripes.style.transform = `translate(${offset}px, ${offset}px)`;
+    lastScrollY = scrollY;
+  });
+});
+</script>

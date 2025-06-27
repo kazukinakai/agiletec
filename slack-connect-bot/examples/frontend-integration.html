@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slack Connect Integration Example</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .slack-button {
+            background-color: #4A154B;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .slack-button:hover {
+            background-color: #611f69;
+        }
+        .slack-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .message {
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <h1>Slackで相談する</h1>
+    
+    <form id="slackForm">
+        <div class="form-group">
+            <label for="company">会社名</label>
+            <input type="text" id="company" name="company" placeholder="株式会社○○">
+        </div>
+        
+        <div class="form-group">
+            <label for="name">お名前</label>
+            <input type="text" id="name" name="name" placeholder="山田 太郎">
+        </div>
+        
+        <div class="form-group">
+            <label for="email">メールアドレス</label>
+            <input type="email" id="email" name="email" placeholder="example@company.com">
+        </div>
+        
+        <div class="form-group">
+            <label for="type">お問い合わせ種別</label>
+            <select id="type" name="type">
+                <option value="general">一般お問い合わせ</option>
+                <option value="consultation">技術相談</option>
+                <option value="partnership">パートナーシップ</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="message">メッセージ（任意）</label>
+            <textarea id="message" name="message" rows="4" placeholder="ご相談内容をお聞かせください"></textarea>
+        </div>
+        
+        <button type="submit" class="slack-button">
+            <svg width="20" height="20" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M53.8413 161.32C53.8413 180.146 38.8267 195.16 20 195.16C1.17333 195.16 -13.8413 180.146 -13.8413 161.32C-13.8413 142.493 1.17333 127.48 20 127.48H53.8413V161.32ZM70.76 161.32C70.76 142.493 85.7747 127.48 104.6 127.48C123.427 127.48 138.44 142.493 138.44 161.32V236C138.44 254.827 123.427 269.84 104.6 269.84C85.7747 269.84 70.76 254.827 70.76 236V161.32Z" fill="#E01E5A"/>
+                <path d="M104.6 53.84C85.7733 53.84 70.76 38.8267 70.76 20C70.76 1.17333 85.7733 -13.84 104.6 -13.84C123.427 -13.84 138.44 1.17333 138.44 20V53.84H104.6ZM104.6 70.7613C123.427 70.7613 138.44 85.7747 138.44 104.6C138.44 123.427 123.427 138.44 104.6 138.44H20C1.17333 138.44 -13.84 123.427 -13.84 104.6C-13.84 85.7747 1.17333 70.7613 20 70.7613H104.6Z" fill="#36C5F0"/>
+                <path d="M202.16 104.6C202.16 85.7733 217.173 70.76 236 70.76C254.827 70.76 269.84 85.7733 269.84 104.6C269.84 123.427 254.827 138.44 236 138.44H202.16V104.6ZM185.24 104.6C185.24 123.427 170.227 138.44 151.4 138.44C132.573 138.44 117.56 123.427 117.56 104.6V20C117.56 1.17333 132.573 -13.84 151.4 -13.84C170.227 -13.84 185.24 1.17333 185.24 20V104.6Z" fill="#2EB67D"/>
+                <path d="M151.4 202.16C170.227 202.16 185.24 217.173 185.24 236C185.24 254.827 170.227 269.84 151.4 269.84C132.573 269.84 117.56 254.827 117.56 236V202.16H151.4ZM151.4 185.24C132.573 185.24 117.56 170.227 117.56 151.4C117.56 132.573 132.573 117.56 151.4 117.56H236C254.827 117.56 269.84 132.573 269.84 151.4C269.84 170.227 254.827 185.24 236 185.24H151.4Z" fill="#ECB22E"/>
+            </svg>
+            Slackで相談を開始
+        </button>
+    </form>
+    
+    <div id="message"></div>
+
+    <script>
+        const API_URL = 'https://api.agiletec.net/api/create-channel';
+        // 開発環境の場合
+        // const API_URL = 'http://localhost:8787/api/create-channel';
+        
+        document.getElementById('slackForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const button = e.target.querySelector('button');
+            const messageDiv = document.getElementById('message');
+            
+            // ボタンを無効化
+            button.disabled = true;
+            button.textContent = '処理中...';
+            messageDiv.innerHTML = '';
+            
+            // フォームデータを収集
+            const formData = {
+                company: document.getElementById('company').value,
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                type: document.getElementById('type').value,
+                message: document.getElementById('message').value,
+            };
+            
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    messageDiv.innerHTML = `
+                        <div class="message success">
+                            <strong>✅ ${result.message}</strong><br>
+                            <small>チャンネル名: #${result.channelName}</small>
+                        </div>
+                    `;
+                    // フォームをリセット
+                    e.target.reset();
+                } else {
+                    throw new Error(result.error || '処理に失敗しました');
+                }
+            } catch (error) {
+                messageDiv.innerHTML = `
+                    <div class="message error">
+                        <strong>❌ エラー</strong><br>
+                        ${error.message}
+                    </div>
+                `;
+            } finally {
+                // ボタンを有効化
+                button.disabled = false;
+                button.innerHTML = `
+                    <svg width="20" height="20" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M53.8413 161.32C53.8413 180.146 38.8267 195.16 20 195.16C1.17333 195.16 -13.8413 180.146 -13.8413 161.32C-13.8413 142.493 1.17333 127.48 20 127.48H53.8413V161.32ZM70.76 161.32C70.76 142.493 85.7747 127.48 104.6 127.48C123.427 127.48 138.44 142.493 138.44 161.32V236C138.44 254.827 123.427 269.84 104.6 269.84C85.7747 269.84 70.76 254.827 70.76 236V161.32Z" fill="#E01E5A"/>
+                        <path d="M104.6 53.84C85.7733 53.84 70.76 38.8267 70.76 20C70.76 1.17333 85.7733 -13.84 104.6 -13.84C123.427 -13.84 138.44 1.17333 138.44 20V53.84H104.6ZM104.6 70.7613C123.427 70.7613 138.44 85.7747 138.44 104.6C138.44 123.427 123.427 138.44 104.6 138.44H20C1.17333 138.44 -13.84 123.427 -13.84 104.6C-13.84 85.7747 1.17333 70.7613 20 70.7613H104.6Z" fill="#36C5F0"/>
+                        <path d="M202.16 104.6C202.16 85.7733 217.173 70.76 236 70.76C254.827 70.76 269.84 85.7733 269.84 104.6C269.84 123.427 254.827 138.44 236 138.44H202.16V104.6ZM185.24 104.6C185.24 123.427 170.227 138.44 151.4 138.44C132.573 138.44 117.56 123.427 117.56 104.6V20C117.56 1.17333 132.573 -13.84 151.4 -13.84C170.227 -13.84 185.24 1.17333 185.24 20V104.6Z" fill="#2EB67D"/>
+                        <path d="M151.4 202.16C170.227 202.16 185.24 217.173 185.24 236C185.24 254.827 170.227 269.84 151.4 269.84C132.573 269.84 117.56 254.827 117.56 236V202.16H151.4ZM151.4 185.24C132.573 185.24 117.56 170.227 117.56 151.4C117.56 132.573 117.56 117.56 151.4 117.56H236C254.827 117.56 269.84 132.573 269.84 151.4C269.84 170.227 254.827 185.24 236 185.24H151.4Z" fill="#ECB22E"/>
+                    </svg>
+                    Slackで相談を開始
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

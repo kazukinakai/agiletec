@@ -1,0 +1,305 @@
+---
+const services = [
+  {
+    id: 'airis',
+    title: 'AIris',
+    subtitle: 'AI電話受付サービス',
+    description: 'AIが24時間自動で電話対応し、内容を要約して通知します',
+    icon: '🤖',
+    price: '月額5万円〜',
+    features: ['24時間対応', '多言語対応', '要約機能', 'CRM連携'],
+    ctaText: 'AIrisを詳しく見る →',
+    ctaUrl: 'https://airis.technology',
+    external: true,
+    gradient: 'from-primary-500 to-cyan-500',
+    glowColor: 'primary',
+    popular: true
+  },
+  {
+    id: 'cto',
+    title: 'クラウドCTO',
+    subtitle: 'IT顧問サービス',
+    description: '30万円/月からのIT顧問サービス。スポット相談もOK',
+    icon: '👨‍💼',
+    price: '月額30万円〜',
+    features: ['技術戦略策定', 'チーム構築支援', 'コードレビュー', 'スポット相談'],
+    ctaText: '詳細を見る',
+    ctaUrl: '#contact',
+    gradient: 'from-secondary-500 to-pink-500',
+    glowColor: 'secondary'
+  },
+  {
+    id: 'mvp',
+    title: 'MVP制作支援',
+    subtitle: '高速プロトタイピング',
+    description: '生成AIで高速にプロトタイピング。30万〜100万円プラン',
+    icon: '🚀',
+    price: '30万円〜100万円',
+    features: ['高速プロトタイピング', 'ユーザーテスト支援', 'ピボット対応', 'スケーラブル設計'],
+    ctaText: 'MVP開発を見る',
+    ctaUrl: '#contact',
+    gradient: 'from-emerald-500 to-teal-500',
+    glowColor: 'accent'
+  },
+  {
+    id: 'web',
+    title: 'Web制作',
+    subtitle: 'コーポレートサイト',
+    description: '10万円から作れる、AI活用のモダン・セキュアなWeb',
+    icon: '🌐',
+    price: '10万円〜',
+    features: ['レスポンシブ対応', 'SEO最適化', 'セキュリティ対策', 'CMS構築'],
+    ctaText: 'Web制作を見る',
+    ctaUrl: '#contact',
+    gradient: 'from-orange-500 to-red-500',
+    glowColor: 'accent'
+  },
+  {
+    id: 'lp',
+    title: 'LP制作',
+    subtitle: 'ランディングページ',
+    description: '5万〜20万円、最短3日で高品質LP納品可能',
+    icon: '📄',
+    price: '5万円〜20万円',
+    features: ['最短3日納品', 'A/Bテスト対応', 'コンバージョン最適化', 'アニメーション'],
+    ctaText: 'LP制作を見る',
+    ctaUrl: '#contact',
+    gradient: 'from-indigo-500 to-purple-500',
+    glowColor: 'secondary',
+    featured: true
+  },
+  {
+    id: 'slides',
+    title: '資料・スライド制作',
+    subtitle: 'ビジネス資料',
+    description: 'AI×デザインで効率的にビジネス資料を作成',
+    icon: '📊',
+    price: '3万円〜15万円',
+    features: ['AI活用', 'ブランド統一', 'インフォグラフィック', '多言語対応'],
+    ctaText: 'スライド制作を見る',
+    ctaUrl: '#contact',
+    gradient: 'from-violet-500 to-blue-500',
+    glowColor: 'primary'
+  }
+];
+
+const getGlowClass = (color: string) => {
+  const glows = {
+    'primary': 'hover:shadow-primary-500/30',
+    'secondary': 'hover:shadow-secondary-500/30', 
+    'accent': 'hover:shadow-accent-500/30'
+  };
+  return glows[color] || 'hover:shadow-primary-500/30';
+};
+---
+
+<section id="services" class="py-32 bg-gradient-to-b from-neutral-900 to-neutral-950 relative overflow-hidden">
+  <!-- 動的背景要素 -->
+  <div class="absolute inset-0">
+    <div class="absolute top-1/3 left-1/4 w-128 h-128 bg-gradient-to-br from-primary-500/5 to-secondary-500/5 rounded-full blur-3xl animate-float"></div>
+    <div class="absolute bottom-1/3 right-1/4 w-96 h-96 bg-gradient-to-br from-accent-500/5 to-primary-500/5 rounded-full blur-3xl animate-float" style="animation-delay: 4s;"></div>
+    
+    <!-- 幾何学的要素 -->
+    <div class="absolute top-20 right-20 w-32 h-32 border border-primary-400/20 rounded-3xl rotate-12 animate-float"></div>
+    <div class="absolute bottom-20 left-20 w-24 h-24 border border-secondary-400/20 rounded-full animate-glow"></div>
+  </div>
+
+  <!-- グリッド背景 -->
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute inset-0" style="background-image: linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px); background-size: 100px 100px;"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- セクションヘッダー -->
+    <div class="text-center mb-24 animate-slide-up">
+      <div class="inline-block mb-6">
+        <span class="px-8 py-4 bg-gradient-to-r from-primary-500/20 to-secondary-500/20 backdrop-blur-sm border border-primary-400/30 rounded-full text-primary-300 font-bold text-sm uppercase tracking-widest animate-pulse-glow">
+          Our Services
+        </span>
+      </div>
+      
+      <h2 class="text-5xl md:text-8xl font-black font-display mb-8 animate-fade-in">
+        <span class="block bg-gradient-to-r from-neutral-100 via-primary-200 to-secondary-200 bg-clip-text text-transparent">
+          サービス一覧
+        </span>
+      </h2>
+      
+      <p class="text-xl md:text-2xl text-neutral-400 max-w-4xl mx-auto leading-relaxed animate-fade-in" style="animation-delay: 0.2s;">
+        生成AIの力で、あらゆる開発ニーズにお応えします。<br>
+        <span class="text-primary-400 font-semibold">革新的な技術</span>と<span class="text-secondary-400 font-semibold">確かな実績</span>で、お客様のビジネスを加速させます。
+      </p>
+      
+      <!-- 装飾ライン -->
+      <div class="mt-10 flex justify-center animate-scale-in" style="animation-delay: 0.4s;">
+        <div class="flex space-x-2">
+          <div class="w-3 h-3 bg-primary-500 rounded-full animate-pulse"></div>
+          <div class="w-12 h-1 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 rounded-full my-1"></div>
+          <div class="w-3 h-3 bg-secondary-500 rounded-full animate-pulse" style="animation-delay: 0.5s;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- サービスグリッド -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+      {services.map((service, index) => (
+        <div 
+          class="group relative animate-slide-up" 
+          style={`animation-delay: ${0.1 * index}s;`}
+        >
+          <!-- 人気バッジ -->
+          {service.popular && (
+            <div class="absolute -top-4 -right-4 z-20">
+              <div class="px-4 py-2 bg-gradient-to-r from-accent-500 to-accent-600 text-white text-xs font-bold rounded-full shadow-lg animate-pulse-glow">
+                人気No.1
+              </div>
+            </div>
+          )}
+          
+          <!-- 注目バッジ -->
+          {service.featured && (
+            <div class="absolute -top-4 -left-4 z-20">
+              <div class="px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white text-xs font-bold rounded-full shadow-lg animate-pulse">
+                ⚡ 高速納品
+              </div>
+            </div>
+          )}
+
+          <div class={`relative h-full bg-neutral-900/60 backdrop-blur-xl rounded-3xl border border-neutral-700/50 overflow-hidden transition-all duration-700 hover:scale-105 hover:border-primary-400/50 hover:shadow-2xl ${getGlowClass(service.glowColor)}`}>
+            <!-- ホバー時のグラデーション背景 -->
+            <div class={`absolute inset-0 bg-gradient-to-br ${service.gradient}/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+            
+            <!-- ヘッダー部分 -->
+            <div class={`relative bg-gradient-to-br ${service.gradient}/10 p-8 border-b border-neutral-700/50`}>
+              <!-- 背景パターン -->
+              <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 20px 20px;"></div>
+              
+              <!-- アイコンとタイトル -->
+              <div class="relative z-10 flex items-center space-x-4 mb-4">
+                <div class="text-5xl animate-float" style={`animation-delay: ${index * 0.5}s;`}>
+                  {service.icon}
+                </div>
+                <div>
+                  <h3 class="text-2xl font-black text-neutral-100 group-hover:text-primary-300 transition-colors duration-300">
+                    {service.title}
+                  </h3>
+                  <p class="text-neutral-400 font-medium">
+                    {service.subtitle}
+                  </p>
+                </div>
+              </div>
+              
+              <!-- 価格 -->
+              <div class="flex items-center justify-between">
+                <div class={`text-3xl font-black bg-gradient-to-r ${service.gradient} bg-clip-text text-transparent animate-glow`}>
+                  {service.price}
+                </div>
+                <div class="w-3 h-3 bg-primary-400 rounded-full animate-pulse"></div>
+              </div>
+            </div>
+
+            <!-- コンテンツ部分 -->
+            <div class="relative z-10 p-8">
+              <!-- 説明文 -->
+              <p class="text-neutral-300 text-lg leading-relaxed mb-6">
+                {service.description}
+              </p>
+              
+              <!-- 機能一覧 -->
+              <div class="space-y-3 mb-8">
+                <h4 class="text-sm font-bold text-primary-400 uppercase tracking-wider">主な機能</h4>
+                <div class="grid grid-cols-2 gap-2">
+                  {service.features.map((feature, featureIndex) => (
+                    <div 
+                      class="flex items-center text-sm text-neutral-400 animate-fade-in"
+                      style={`animation-delay: ${(index * 0.1) + (featureIndex * 0.1)}s;`}
+                    >
+                      <div class="w-2 h-2 bg-primary-400 rounded-full mr-2 animate-pulse"></div>
+                      {feature}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <!-- CTAボタン -->
+              <a 
+                href={service.ctaUrl}
+                {...(service.external && { target: "_blank", rel: "noopener noreferrer" })}
+                class={`group/btn relative block w-full py-4 px-6 bg-gradient-to-r ${service.gradient} text-white font-bold rounded-2xl text-center overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-lg ${getGlowClass(service.glowColor)}`}
+              >
+                <!-- ボタン背景 -->
+                <div class="absolute inset-0 bg-white/10 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+                
+                <!-- ボタンテキスト -->
+                <div class="relative z-10 flex items-center justify-center">
+                  <span>{service.ctaText}</span>
+                  {service.external && (
+                    <svg class="w-5 h-5 ml-2 transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                    </svg>
+                  )}
+                </div>
+                
+                <!-- シマー効果 -->
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- 底部CTA -->
+    <div class="text-center animate-slide-up" style="animation-delay: 0.8s;">
+      <div class="relative max-w-4xl mx-auto bg-neutral-900/60 backdrop-blur-xl rounded-4xl border border-neutral-700/50 p-12 overflow-hidden">
+        <!-- 背景装飾 -->
+        <div class="absolute inset-0 bg-gradient-to-br from-primary-500/5 via-secondary-500/5 to-accent-500/5"></div>
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500"></div>
+        
+        <div class="relative z-10">
+          <h3 class="text-3xl md:text-4xl font-black text-neutral-100 mb-6">
+            まずはお気軽に<span class="bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent">ご相談</span>ください
+          </h3>
+          <p class="text-lg text-neutral-400 mb-8 max-w-2xl mx-auto leading-relaxed">
+            どのサービスが最適かわからない場合でも、お客様の課題をヒアリングして<br>
+            <span class="text-primary-400 font-semibold">最適なソリューション</span>を無料でご提案いたします。
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a 
+              href="#contact" 
+              class="group relative px-10 py-5 bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 text-white font-bold rounded-2xl text-lg overflow-hidden transition-all duration-500 hover:scale-110 hover:shadow-2xl hover:shadow-primary-500/50"
+            >
+              <span class="relative z-10">無料相談を申し込む</span>
+              <div class="absolute inset-0 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></div>
+            </a>
+            
+            <a 
+              href="tel:+81-80-1234-5678" 
+              class="group px-10 py-5 border-2 border-neutral-600 bg-neutral-900/50 backdrop-blur-sm text-neutral-200 font-bold rounded-2xl text-lg transition-all duration-500 hover:scale-105 hover:border-primary-400 hover:bg-primary-500/20 hover:shadow-xl hover:shadow-primary-500/30"
+            >
+              <div class="flex items-center justify-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                </svg>
+                <span class="group-hover:text-primary-300 transition-colors duration-300">お電話で相談</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* カスタムアニメーション遅延 */
+  [style*="animation-delay: 0.1s"] { animation-delay: 0.1s; }
+  [style*="animation-delay: 0.2s"] { animation-delay: 0.2s; }
+  [style*="animation-delay: 0.3s"] { animation-delay: 0.3s; }
+  [style*="animation-delay: 0.4s"] { animation-delay: 0.4s; }
+  [style*="animation-delay: 0.5s"] { animation-delay: 0.5s; }
+  [style*="animation-delay: 0.6s"] { animation-delay: 0.6s; }
+  [style*="animation-delay: 0.7s"] { animation-delay: 0.7s; }
+  [style*="animation-delay: 0.8s"] { animation-delay: 0.8s; }
+</style>

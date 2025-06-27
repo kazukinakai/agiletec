@@ -1,0 +1,86 @@
+---
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "株式会社アジャイルテクノロジー",
+  "alternateName": "Agile Technology",
+  "url": "https://agiletec.net",
+  "logo": "https://agiletec.net/logo.png",
+  "description": "生成AIの力で全ての企業に自社開発を。MVP開発・DX支援・Web制作を高品質かつ低コストで提供するフリーランス法人。",
+  "foundingDate": "2024",
+  "founder": {
+    "@type": "Person",
+    "name": "中井 一機",
+    "jobTitle": "代表取締役社長 / CTO"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "渋谷区",
+    "addressRegion": "東京都",
+    "addressCountry": "JP"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+81-80-1234-5678",
+    "email": "contact@agiletec.net",
+    "contactType": "customer service",
+    "availableLanguage": ["Japanese", "English"]
+  },
+  "sameAs": [
+    "https://github.com/nakai-kazuki",
+    "https://twitter.com/nakai_kazuki",
+    "https://note.com/nakai_kazuki",
+    "https://www.lancers.jp/profile/nakai-kazuki"
+  ],
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "AIris - AI電話受付サービス",
+      "description": "AIが24時間自動で電話対応し、内容を要約して通知",
+      "url": "https://airis.technology"
+    },
+    {
+      "@type": "Offer", 
+      "name": "クラウドCTOサービス",
+      "description": "30万円/月からのIT顧問サービス",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "price": "300000",
+        "priceCurrency": "JPY"
+      }
+    },
+    {
+      "@type": "Offer",
+      "name": "MVP制作支援",
+      "description": "生成AIで高速プロトタイピング",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "price": "300000",
+        "priceCurrency": "JPY"
+      }
+    },
+    {
+      "@type": "Offer",
+      "name": "Web制作",
+      "description": "AI活用のモダン・セキュアなWebサイト制作",
+      "priceSpecification": {
+        "@type": "PriceSpecification", 
+        "price": "100000",
+        "priceCurrency": "JPY"
+      }
+    },
+    {
+      "@type": "Offer",
+      "name": "LP制作",
+      "description": "最短3日で高品質LP納品",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "price": "50000", 
+        "priceCurrency": "JPY"
+      }
+    }
+  ]
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>

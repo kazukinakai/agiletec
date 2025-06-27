@@ -1,6 +1,7 @@
 ---
 import type { PageMeta } from '@types/index';
 import '@styles/global.css';
+import StructuredData from '@components/common/StructuredData.astro';
 
 export interface Props {
   meta?: PageMeta;
@@ -41,6 +42,9 @@ const {
     <meta name="twitter:image" content={meta.ogImage || '/og-image.png'} />
     
     <title>{meta.title}</title>
+    
+    <!-- Structured Data -->
+    <StructuredData />
   </head>
   <body class={`antialiased ${className}`}>
     <slot />

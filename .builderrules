@@ -1,0 +1,80 @@
+# Builder.io AI Code Generation Rules
+
+## Framework Configuration
+- Framework: Astro + React Islands
+- Styling: Tailwind CSS
+- TypeScript: Required
+- Motion: framer-motion/mini for animations only
+
+## Code Generation Rules
+
+### Component Structure
+- Generate .astro files for static sections
+- Create .tsx files only for interactive/animated components
+- Use Island Architecture pattern
+- Separate concerns: layout vs animation
+
+### Styling Instructions
+- Use Tailwind utility classes exclusively
+- Implement mobile-first responsive design
+- Use semantic color names from Tailwind palette
+- Prefer transform over position changes for animations
+- Apply backdrop-blur and bg-opacity for glass effects
+
+### Animation Guidelines
+- Implement Motion only where necessary
+- Use useScroll, useTransform for scroll animations
+- Apply GPU acceleration (transform-gpu class)
+- Include prefers-reduced-motion media query support
+- Target 60FPS performance
+
+### Layout Patterns
+- Use CSS Grid and Flexbox through Tailwind
+- Implement container queries where appropriate
+- Apply aspect-ratio utilities for consistent proportions
+- Use space-y and gap utilities for consistent spacing
+
+### Performance Optimization
+- Lazy load images with Astro Image component
+- Minimize JavaScript bundle size
+- Use static generation for all possible content
+- Apply proper semantic HTML structure
+
+### Accessibility
+- Include proper ARIA labels
+- Ensure keyboard navigation support
+- Maintain proper heading hierarchy
+- Use semantic HTML elements
+
+## Specific Component Requests
+
+### Hero Section
+- Implement gradient backgrounds using Tailwind
+- Add subtle scroll-triggered animations
+- Ensure responsive typography scaling
+- Include call-to-action buttons with hover states
+
+### Navigation
+- Create responsive mobile menu
+- Implement smooth scroll navigation
+- Add active state indicators
+- Support keyboard navigation
+
+### Diagonal Lines Animation
+- Use SVG elements for diagonal lines
+- Apply different colors: blue, red, green, yellow, orange
+- Implement scroll-based position transforms
+- Ensure responsive positioning across breakpoints
+
+### Content Sections
+- Alternate background colors/gradients as specified
+- Use proper content hierarchy
+- Implement staggered animations on scroll
+- Apply consistent spacing and typography
+
+## Code Quality
+- Generate clean, readable code
+- Include TypeScript types for all props
+- Add meaningful component and variable names
+- Include JSDoc comments for complex logic
+- Follow modern React/Astro best practices
