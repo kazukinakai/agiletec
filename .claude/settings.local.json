@@ -18,7 +18,12 @@
       "Bash(rm:*)",
       "Bash(node scripts/check-env.js)",
       "Bash(touch:*)",
-      "WebFetch(domain:dev.agiletec.net)"
+      "WebFetch(domain:dev.agiletec.net)",
+      "Bash(git commit:*)",
+      "Bash(gh repo create:*)",
+      "Bash(npx wrangler:*)",
+      "Bash(ls:*)",
+      "Bash(./node_modules/.bin/wrangler deploy)"
     ],
     "deny": []
   }
