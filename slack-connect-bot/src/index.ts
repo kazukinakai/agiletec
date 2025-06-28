@@ -31,6 +31,56 @@ app.use('/*', cors({
 }))
 
 
+// Slack OAuth認証URL生成
+app.get('/slack/oauth/url', async (c) => {
+  const logger = new Logger({ endpoint: 'oauth_url' })
+  try {
+    logger.info('Starting OAuth URL generation')
+    
+    // Infisical統合により環境変数として同期されている
+    const envVars = env(c)
+    const slackClientId = envVars.SLACK_CLIENT_ID
+    const redirectUri = envVars.SLACK_REDIRECT_URI || 'https://api.agiletec.net/slack/oauth/callback'
+    
+    logger.info('Slack config', { 
+      has_client_id: !!slackClientId,
+      redirect_uri: redirectUri,
+    })
+    
+    if (!slackClientId) {
+      logger.error('Missing Slack Client ID')
+      return c.json({ error: 'Server configuration error' }, 500)
+    }
+
+    // Slack OAuth認証URLを生成
+    const scopes = [
+      'channels:manage',
+      'channels:read', 
+      'channels:write.invites',
+      'groups:read',
+      'groups:write',
+      'groups:write.invites',
+      'chat:write',
+      'users:read',
+      'app_mentions:read'
+    ].join(',')
+
+    const state = Math.random().toString(36).substring(2, 15)
+    const authUrl = `https://slack.com/oauth/v2/authorize?client_id=${slackClientId}&scope=${encodeURIComponent(scopes)}&redirect_uri=${encodeURIComponent(redirectUri)}&state=${state}`
+    
+    logger.info('OAuth URL generated')
+    
+    return c.json({
+      ok: true,
+      auth_url: authUrl,
+      state: state
+    })
+  } catch (error) {
+    logger.error('OAuth URL generation error', error)
+    return c.json({ error: 'Internal server error' }, 500)
+  }
+})
+
 app.get('/slack/oauth/callback', async (c) => {
   const logger = new Logger({ endpoint: 'oauth_callback' })
   try {
@@ -43,11 +93,11 @@ app.get('/slack/oauth/callback', async (c) => {
       return c.text('No authorization code provided', 400)
     }
 
-    const secrets = await getSecretsFromInfisical(c)
+    const envVars = env(c)
     
-    const slackClientId = secrets.find(s => s.secretKey === 'SLACK_CLIENT_ID')?.secretValue
-    const slackClientSecret = secrets.find(s => s.secretKey === 'SLACK_CLIENT_SECRET')?.secretValue
-    const redirectUri = secrets.find(s => s.secretKey === 'SLACK_REDIRECT_URI')?.secretValue || 'https://api.agiletec.net/slack/oauth/callback'
+    const slackClientId = envVars.SLACK_CLIENT_ID
+    const slackClientSecret = envVars.SLACK_CLIENT_SECRET
+    const redirectUri = envVars.SLACK_REDIRECT_URI || 'https://api.agiletec.net/slack/oauth/callback'
 
     if (!slackClientId || !slackClientSecret) {
       logger.error('Missing Slack credentials in Infisical')
@@ -85,8 +135,8 @@ app.get('/slack/oauth/callback', async (c) => {
       const slackService = new SlackService(tokenData.access_token)
       
       // デフォルトチャンネル名を取得
-      const defaultChannelName = secrets.find(s => s.secretKey === 'DEFAULT_CHANNEL_NAME')?.secretValue || 'agiletec-connect'
-      const partnerEmails = secrets.find(s => s.secretKey === 'PARTNER_EMAILS')?.secretValue?.split(',') || []
+      const defaultChannelName = envVars.DEFAULT_CHANNEL_NAME || 'agiletec-connect'
+      const partnerEmails = envVars.PARTNER_EMAILS?.split(',') || []
       
       try {
         // チャンネルの作成または取得
@@ -180,17 +230,20 @@ app.route('/slack/events', events)
 app.route('/api', publicApi)
 
 // stg.agiletec.net用のプロキシ
-// 条件分岐でドメインごとに処理を変える
-app.get('*', async (c) => {
-  const hostname = new URL(c.req.url).hostname
-  
-  // stg.agiletec.netの場合はプロキシ処理
-  if (hostname === 'stg.agiletec.net' || hostname === 'localhost') {
-    return siteProxy.fetch(c.req.raw, c.env, c.executionCtx)
-  }
-  
-  // api.agiletec.netの場合は通常のAPI
-  return app.fetch(c.req.raw, c.env, c.executionCtx)
+// localhostでテストする場合は /proxy/* でアクセス
+app.route('/proxy', siteProxy)
+
+
+// デバッグ用
+app.get('/debug/env', (c) => {
+  const envVars = env(c)
+  return c.json({
+    slack_client_id: !!envVars.SLACK_CLIENT_ID,
+    slack_client_secret: !!envVars.SLACK_CLIENT_SECRET,
+    slack_redirect_uri: !!envVars.SLACK_REDIRECT_URI,
+    default_channel_name: !!envVars.DEFAULT_CHANNEL_NAME,
+    all_keys: Object.keys(envVars).filter(k => k.startsWith('SLACK_') || k.startsWith('DEFAULT_'))
+  })
 })
 
 app.get('/', (c) => {
@@ -202,6 +255,7 @@ app.get('/', (c) => {
         'POST /api/create-channel - 公開API：チャンネル作成',
       ],
       oauth: [
+        'GET /slack/oauth/url - OAuth認証URL生成',
         'GET /slack/oauth/callback - OAuth認証',
       ],
       connect: [
@@ -216,6 +270,9 @@ app.get('/', (c) => {
       ],
       events: [
         'POST /slack/events - イベント受信',
+      ],
+      proxy: [
+        'GET /proxy/* - サイトプロキシ（開発用）',
       ],
     }
   })

@@ -1,0 +1,9 @@
+{
+  "name": "ready-ai-to-react-conversion",
+  "version": "1.0.0",
+  "dependencies": {
+    "react": "latest",
+    "@types/react": "latest",
+    "tailwindcss": "latest"
+  }
+}

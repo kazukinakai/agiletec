@@ -23,7 +23,14 @@
       "Bash(gh repo create:*)",
       "Bash(npx wrangler:*)",
       "Bash(ls:*)",
-      "Bash(./node_modules/.bin/wrangler deploy)"
+      "Bash(./node_modules/.bin/wrangler deploy)",
+      "Bash(pnpm test:*)",
+      "Bash(npm run deploy:local:*)",
+      "Bash(curl:*)",
+      "WebFetch(domain:infisical.com)",
+      "Bash(pnpm sync:ready-ai:*)",
+      "Bash(pnpm vibesurfer:test:*)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }

@@ -1,28 +1,39 @@
 {
   "name": "agiletec-website",
-  "type": "module",
   "version": "1.0.0",
+  "description": "AgileTech corporate website with VibeSurfer tech validation",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "sync": "astro sync"
+    "sync:ready-ai": "tsx scripts/ready-ai/main.ts",
+    "sync:ready-ai:dev": "tsx scripts/ready-ai/main.ts --verbose",
+    "test:system": "tsx scripts/test-system.ts",
+    "clean:history": "tsx scripts/utils/file-manager.ts --clean",
+    "stats": "tsx scripts/ready-ai/main.ts --stats",
+    "vibesurfer:test": "tsx vibesurfer-experiments/test-converter.ts",
+    "vibesurfer:parse": "tsx vibesurfer-experiments/universal-parser.ts"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.4.1",
-    "astro": "^5.8.0",
-    "sharp": "^0.34.2"
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/react": "^3.6.2",
+    "@unocss/astro": "^0.63.6",
+    "@unocss/preset-uno": "^0.63.6",
+    "astro": "^5.0.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.7.2",
+    "unocss": "^0.63.6"
   },
   "devDependencies": {
-    "@unocss/astro": "^66.2.3",
-    "typescript": "^5.7.3",
-    "unocss": "^66.2.3"
+    "@types/react": "^18.3.17",
+    "@types/react-dom": "^18.3.5",
+    "cheerio": "^1.0.0",
+    "crypto-js": "^4.2.0",
+    "puppeteer": "^23.9.0",
+    "tsx": "^4.19.2"
   },
-  "engines": {
-    "node": ">=18.20.8",
-    "npm": ">=9.0.0"
-  },
-  "packageManager": "pnpm@10.12.1+sha512.f0dda8580f0ee9481c5c79a1d927b9164f2c478e90992ad268bbb2465a736984391d6333d2c327913578b2804af33474ca554ba29c04a8b13060a717675ae3ac"
+  "type": "module"
 }

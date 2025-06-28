@@ -1,0 +1,38 @@
+{"timestamp":"2025-06-28T05:09:10.740Z","level":"INFO","message":"現在のストレージ使用量","data":{"total":"2.6 KB","current":"2.6 KB","history":"0.0 B","processed":"0.0 B"}}
+{"timestamp":"2025-06-28T05:09:10.739Z","level":"INFO","message":"Ready.ai同期処理を開始します","data":{"verbose":true,"dryRun":true}}
+{"timestamp":"2025-06-28T05:09:10.742Z","level":"INFO","message":"Ready.aiサイトのスクレイピングを開始します","data":{"url":"https://dev.agiletec.net"}}
+{"timestamp":"2025-06-28T05:09:12.598Z","level":"INFO","message":"ページにアクセスしています..."}
+{"timestamp":"2025-06-28T05:09:15.404Z","level":"INFO","message":"スクレイピング完了","data":{"htmlSize":110154,"cssSize":27455,"hash":"7978adc053d5237f74466bb359473c17"}}
+{"timestamp":"2025-06-28T05:09:15.404Z","level":"INFO","message":"開始: データ保存"}
+{"timestamp":"2025-06-28T05:09:15.407Z","level":"INFO","message":"完了: データ保存","data":{"duration":"3ms"}}
+{"timestamp":"2025-06-28T05:09:15.407Z","level":"INFO","message":"データ保存完了","data":{"htmlSize":110154,"cssSize":27455,"hash":"7978adc053d5237f74466bb359473c17"}}
+{"timestamp":"2025-06-28T05:09:15.479Z","level":"INFO","message":"変更チェック完了","data":{"currentHash":"7978adc053d5237f74466bb359473c17","hasChanges":true}}
+{"timestamp":"2025-06-28T05:09:15.479Z","level":"INFO","message":"変更が検出されました。同期処理を開始します。","data":{"hasChanges":true}}
+{"timestamp":"2025-06-28T05:09:15.479Z","level":"INFO","message":"Ready.aiサイトのスクレイピングを開始します","data":{"url":"https://dev.agiletec.net"}}
+{"timestamp":"2025-06-28T05:09:15.750Z","level":"INFO","message":"ページにアクセスしています..."}
+{"timestamp":"2025-06-28T05:09:18.381Z","level":"INFO","message":"スクレイピング完了","data":{"htmlSize":110154,"cssSize":27455,"hash":"256ea6c2c3202dbcf4994480ccadc70b"}}
+{"timestamp":"2025-06-28T05:09:18.381Z","level":"INFO","message":"開始: データ保存"}
+{"timestamp":"2025-06-28T05:09:18.383Z","level":"INFO","message":"完了: データ保存","data":{"duration":"2ms"}}
+{"timestamp":"2025-06-28T05:09:18.383Z","level":"INFO","message":"データ保存完了","data":{"htmlSize":110154,"cssSize":27455,"hash":"256ea6c2c3202dbcf4994480ccadc70b"}}
+{"timestamp":"2025-06-28T09:09:15.115Z","level":"INFO","message":"ハッシュ機能テストを開始します"}
+{"timestamp":"2025-06-28T09:09:15.315Z","level":"INFO","message":"ハッシュ機能テスト結果","data":{"htmlHash":"b16afffa17c5df4b26b07fb5440d25d8","siteHash":"ec40e15229f32e02a6ae8d07c22cb4f8","shortHash":"b16afffa","同じ内容のハッシュ一致":true}}
+{"timestamp":"2025-06-28T09:09:15.315Z","level":"INFO","message":"ファイル管理機能テストを開始します"}
+{"timestamp":"2025-06-28T09:30:23.227Z","level":"INFO","message":"Ready.ai同期処理を開始します","data":{"verbose":true,"dryRun":true}}
+{"timestamp":"2025-06-28T09:30:23.232Z","level":"INFO","message":"現在のストレージ使用量","data":{"total":"295.5 KB","current":"149.1 KB","history":"146.5 KB","processed":"0.0 B"}}
+{"timestamp":"2025-06-28T09:30:23.410Z","level":"INFO","message":"Ready.aiサイトのスクレイピングを開始します","data":{"url":"https://dev.agiletec.net"}}
+{"timestamp":"2025-06-28T09:30:27.766Z","level":"INFO","message":"ページにアクセスしています..."}
+{"timestamp":"2025-06-28T09:30:30.671Z","level":"INFO","message":"スクレイピング完了","data":{"htmlSize":110154,"cssSize":27455,"hash":"7978adc053d5237f74466bb359473c17"}}
+{"timestamp":"2025-06-28T09:30:30.671Z","level":"INFO","message":"開始: データ保存"}
+{"timestamp":"2025-06-28T09:30:30.680Z","level":"INFO","message":"完了: データ保存","data":{"duration":"9ms"}}
+{"timestamp":"2025-06-28T09:30:30.680Z","level":"INFO","message":"データ保存完了","data":{"htmlSize":110154,"cssSize":27455,"hash":"7978adc053d5237f74466bb359473c17"}}
+{"timestamp":"2025-06-28T09:31:10.832Z","level":"INFO","message":"変更チェック完了","data":{"previousHash":"256ea6c2c3202dbcf4994480ccadc70b","currentHash":"7978adc053d5237f74466bb359473c17","hasChanges":true}}
+{"timestamp":"2025-06-28T09:31:10.832Z","level":"INFO","message":"変更が検出されました。同期処理を開始します。","data":{"hasChanges":true}}
+{"timestamp":"2025-06-28T09:31:10.832Z","level":"INFO","message":"Ready.aiサイトのスクレイピングを開始します","data":{"url":"https://dev.agiletec.net"}}
+{"timestamp":"2025-06-28T09:31:11.938Z","level":"INFO","message":"ページにアクセスしています..."}
+{"timestamp":"2025-06-28T09:31:14.474Z","level":"INFO","message":"スクレイピング完了","data":{"htmlSize":110154,"cssSize":27455,"hash":"7978adc053d5237f74466bb359473c17"}}
+{"timestamp":"2025-06-28T09:31:14.474Z","level":"INFO","message":"開始: データ保存"}
+{"timestamp":"2025-06-28T09:31:14.481Z","level":"INFO","message":"完了: データ保存","data":{"duration":"7ms"}}
+{"timestamp":"2025-06-28T09:31:14.482Z","level":"INFO","message":"データ保存完了","data":{"htmlSize":110154,"cssSize":27455,"hash":"7978adc053d5237f74466bb359473c17"}}
+{"timestamp":"2025-06-28T10:04:18.827Z","level":"INFO","message":"開始: HTML解析"}
+{"timestamp":"2025-06-28T10:04:19.279Z","level":"INFO","message":"HTML解析完了","data":{"componentCount":18,"types":["header","hero","footer","section","section","section","section","section","section","section","section","section","section","section","section","section","section","section"]}}
+{"timestamp":"2025-06-28T10:04:19.279Z","level":"INFO","message":"完了: HTML解析","data":{"duration":"452ms"}}

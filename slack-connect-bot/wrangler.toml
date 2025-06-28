@@ -1,5 +1,5 @@
 name = "slack-connect-bot"
-main = "src/index.ts"
+main = "src/worker.ts"
 compatibility_date = "2025-06-27"
 compatibility_flags = ["nodejs_compat"]
 

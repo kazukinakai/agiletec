@@ -1,0 +1,62 @@
+/**
+ * コンポーネントのPropsを抽出
+ */
+function extractComponentProps($element: cheerio.Cheerio<cheerio.Element>): ComponentProps {
+  const props: ComponentProps = {};
+  
+  // テキストコンテンツを抽出
+  const textElements = $element.find('h1, h2, h3, h4, h5, h6, p, span, a');
+  if (textElements.length > 0) {
+    props.text = {};
+    textElements.each((index, el) => {
+      const $el = cheerio.load(el);
+      const text = $el.text().trim();
+      const tagName = el.tagName?.toLowerCase() || 'text';
+      
+      if (text.length > 0) {
+        const key = `${tagName}${index > 0 ? index : ''}`;
+        props.text[key] = text;
+      }
+    });
+  }
+  
+  // 画像を抽出
+  const images = $element.find('img');
+  if (images.length > 0) {
+    props.images = {};
+    images.each((index, img) => {
+      const $img = cheerio.load(img);
+      const src = $img('img').attr('src');
+      const alt = $img('img').attr('alt') || '';
+      
+      if (src) {
+        const key = `image${index > 0 ? index : ''}`;
+        props.images[key] = src;
+        if (alt) {
+          props.images[`${key}Alt`] = alt;
+        }
+      }
+    });
+  }
+  
+  // リンクを抽出
+  const links = $element.find('a[href]');
+  if (links.length > 0) {
+    props.links = {};
+    links.each((index, link) => {
+      const $link = cheerio.load(link);
+      const href = $link('a').attr('href');
+      const text = $link('a').text().trim();
+      
+      if (href) {
+        const key = `link${index > 0 ? index : ''}`;
+        props.links[key] = href;
+        if (text) {
+          props.links[`${key}Text`] = text;
+        }
+      }
+    });
+  }
+  
+  return props;
+}

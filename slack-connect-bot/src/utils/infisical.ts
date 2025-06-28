@@ -1,4 +1,4 @@
-import { InfisicalClient } from '@infisical/sdk'
+import { InfisicalSDK } from '@infisical/sdk'
 import { env } from 'hono/adapter'
 import type { InfisicalSecret } from '../types/infisical'
 
@@ -10,21 +10,22 @@ export async function getSecretsFromInfisical(c: any): Promise<InfisicalSecret[]
     INFISICAL_ENVIRONMENT
   } = env(c)
 
-  const client = new InfisicalClient({
-    auth: {
-      universalAuth: {
-        clientId: INFISICAL_CLIENT_ID,
-        clientSecret: INFISICAL_CLIENT_SECRET,
-      },
-    },
+  const client = new InfisicalSDK()
+
+  await client.auth().universalAuth.login({
+    clientId: INFISICAL_CLIENT_ID,
+    clientSecret: INFISICAL_CLIENT_SECRET,
   })
 
-  const secrets = await client.getSecret({
+  const response = await client.secrets().listSecrets({
     projectId: INFISICAL_PROJECT_ID,
     environment: INFISICAL_ENVIRONMENT,
-    path: "/slack",
-    type: "shared",
   })
 
-  return secrets
+  // レスポンス形式を変換
+  return response.secrets.map(secret => ({
+    secretKey: secret.secretKey,
+    secretValue: secret.secretValue,
+    secretComment: secret.secretComment,
+  }))
 }
