@@ -12,6 +12,7 @@ interface ConnectRequestBody {
   user_ids?: string[]
   team_id?: string
   is_private?: boolean
+  organization_name?: string
 }
 
 connect.post('/invite', async (c) => {
@@ -19,30 +20,37 @@ connect.post('/invite', async (c) => {
   
   try {
     const body = await c.req.json<ConnectRequestBody>()
-    const authHeader = c.req.header('Authorization')
-    
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      logger.warn('Missing or invalid authorization header')
-      return c.json({ error: 'Unauthorized' }, 401)
+    const envVars = env(c) // 環境変数を取得
+    const botAccessToken = envVars.SLACK_BOT_TOKEN // ボットのトークンを取得
+
+    if (!botAccessToken) {
+      logger.error('Missing SLACK_BOT_TOKEN in environment variables')
+      return c.json({ error: 'Server configuration error: SLACK_BOT_TOKEN is missing' }, 500)
     }
     
-    const accessToken = authHeader.substring(7)
-    const slackService = new SlackService(accessToken)
+    const slackService = new SlackService(botAccessToken) // ボットのトークンで初期化
     
+    let channelName = body.channel_name // 既存のchannel_nameを優先
+    if (body.organization_name) {
+      // 組織名からチャンネル名を生成
+      const formattedOrgName = body.organization_name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+      channelName = `contact-${formattedOrgName}-agiletec`
+    }
+
+    if (!channelName) {
+      return c.json({ error: 'channel_name or organization_name is required' }, 400)
+    }
+
     logger.info('Connect invite request', {
-      has_channel_name: !!body.channel_name,
+      channel_name: channelName,
+      organization_name: body.organization_name,
       email_count: body.emails?.length || 0,
       user_id_count: body.user_ids?.length || 0,
     })
     
-    // チャンネル名が指定されていない場合はエラー
-    if (!body.channel_name) {
-      return c.json({ error: 'channel_name is required' }, 400)
-    }
-    
     // チャンネルを作成または取得
     const channelResult = await slackService.createChannel(
-      body.channel_name,
+      channelName, // 生成されたチャンネル名を使用
       body.is_private || false
     )
     

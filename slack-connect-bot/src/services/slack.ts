@@ -75,24 +75,36 @@ export class SlackService {
   }
 
   async listChannels(types: string = 'public_channel,private_channel'): Promise<{ ok: boolean; channels?: Array<{ id: string; name: string; is_shared?: boolean }>; error?: string }> {
-    const response = await fetch(`https://slack.com/api/conversations.list?types=${types}`, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${this.accessToken}`,
-      },
-    })
+    let channels: Array<{ id: string; name: string; is_shared?: boolean }> = []
+    let nextCursor: string | undefined
+    const url = new URL('https://slack.com/api/conversations.list')
+    url.searchParams.set('types', types)
+    url.searchParams.set('limit', '1000') // 1000 is max
 
-    return response.json()
+    do {
+      if (nextCursor) {
+        url.searchParams.set('cursor', nextCursor)
+      }
+
+      const response = await fetch(url.toString(), {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${this.accessToken}`,
+        },
+      })
+
+      const data = await response.json()
+
+      if (!data.ok) {
+        return { ok: false, error: data.error }
+      }
+
+      channels = channels.concat(data.channels)
+      nextCursor = data.response_metadata?.next_cursor
+
+    } while (nextCursor)
+
+    return { ok: true, channels }
   }
 
-  async getChannelInfo(channelId: string): Promise<{ ok: boolean; channel?: { id: string; name: string; is_shared?: boolean; is_ext_shared?: boolean }; error?: string }> {
-    const response = await fetch(`https://slack.com/api/conversations.info?channel=${channelId}`, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${this.accessToken}`,
-      },
-    })
-
-    return response.json()
-  }
-}
+  

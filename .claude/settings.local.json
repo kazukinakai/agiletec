@@ -30,7 +30,8 @@
       "WebFetch(domain:infisical.com)",
       "Bash(pnpm sync:ready-ai:*)",
       "Bash(pnpm vibesurfer:test:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git push:*)"
     ],
     "deny": []
   }
